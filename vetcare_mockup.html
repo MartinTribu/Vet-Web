@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Huella — Tu veterinaria de confianza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #2D6A4F;
+    --verde-claro: #74C69D;
+    --verde-suave: #D8F3DC;
+    --crema: #FFF8F0;
+    --tierra: #A0522D;
+    --tierra-suave: #F5E6D3;
+    --gris-texto: #3A3A3A;
+    --gris-medio: #7A7A7A;
+    --gris-claro: #F0EDE8;
+    --blanco: #FFFFFF;
+    --sombra: 0 4px 24px rgba(45,106,79,0.10);
+    --sombra-hover: 0 8px 32px rgba(45,106,79,0.18);
+    --radio: 16px;
+    --radio-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--gris-texto);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Lora', serif;
+  }
+
+  /* =========================================================
+     BARRA DE ANUNCIO
+  ========================================================= */
+  .announce-bar {
+    background: var(--verde);
+    color: var(--blanco);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+  }
+
+  .announce-track {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: announceScroll 22s linear infinite;
+  }
+
+  .announce-track:hover { animation-play-state: paused; }
+
+  .announce-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .announce-sep {
+    width: 4px;
+    height: 4px;
+    background: var(--verde-claro);
+    border-radius: 50%;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .announce-cta {
+    background: rgba(255,255,255,0.18);
+    border-radius: 40px;
+    padding: 2px 12px;
+    font-size: 0.76rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid rgba(255,255,255,0.25);
+    margin-left: 4px;
+  }
+
+  .announce-cta:hover { background: rgba(255,255,255,0.28); }
+
+  @keyframes announceScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* =========================================================
+     NAVEGACIÓN
+  ========================================================= */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,248,240,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(45,106,79,0.12);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--verde);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .nav-logo-text {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--verde);
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo-sub {
+    font-size: 0.7rem;
+    color: var(--gris-medio);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--gris-texto);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    background: var(--verde-suave);
+    color: var(--verde);
+    font-weight: 500;
+  }
+
+  .nav-cta {
+    background: var(--verde) !important;
+    color: var(--blanco) !important;
+    font-weight: 500 !important;
+    padding: 8px 20px !important;
+  }
+
+  .nav-cta:hover {
+    background: #1E5C3A !important;
+  }
+
+  /* =========================================================
+     PÁGINAS
+  ========================================================= */
+  .page {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+
+  .page.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* =========================================================
+     PÁGINA: INICIO
+  ========================================================= */
+  .hero {
+    min-height: calc(100vh - 108px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2.5rem 3rem;
+    gap: 4rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--verde-suave);
+    color: var(--verde);
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+
+  .hero-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--verde);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: 3.4rem;
+    line-height: 1.12;
+    color: var(--gris-texto);
+    margin-bottom: 1.25rem;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 em {
+    color: var(--verde);
+    font-style: italic;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gris-medio);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--verde);
+    color: var(--blanco);
+    border: none;
+    border-radius: 40px;
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.25);
+  }
+
+  .btn-primary:hover {
+    background: #1E5C3A;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(45,106,79,0.35);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--gris-texto);
+    border: 1.5px solid rgba(45,106,79,0.25);
+    border-radius: 40px;
+    padding: 13px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--verde);
+    color: var(--verde);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .stat-item span {
+    display: block;
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--verde);
+  }
+
+  .stat-item p {
+    font-size: 0.8rem;
+    color: var(--gris-medio);
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+
+  .hero-visual {
+    position: relative;
+  }
+
+  .hero-img-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 24px 24px 80px 24px;
+    display: block;
+  }
+
+  .hero-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #74C69D22 0%, #2D6A4F33 100%);
+    border-radius: 24px 24px 80px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80') center/cover;
+    border-radius: inherit;
+    opacity: 0.9;
+  }
+
+  .hero-card-float {
+    position: absolute;
+    bottom: 2rem;
+    left: -2rem;
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--sombra);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+  }
+
+  .hero-card-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--verde-suave);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .hero-card-text strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gris-texto);
+  }
+
+  .hero-card-text span {
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+  }
+
+  .hero-card-float-2 {
+    position: absolute;
+    top: 2rem;
+    right: -1.5rem;
+    background: var(--verde);
+    border-radius: var(--radio);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--sombra-hover);
+    min-width: 160px;
+    text-align: center;
+    color: var(--blanco);
+  }
+
+  .hero-card-float-2 .num {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    display: block;
+  }
+
+  .hero-card-float-2 .label {
+    font-size: 0.78rem;
+    opacity: 0.85;
+  }
+
+  /* Servicios rápidos en Home */
+  .quick-services {
+    background: var(--gris-claro);
+    padding: 5rem 2.5rem;
+  }
+
+  .section-center {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--verde);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--gris-texto);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: var(--gris-medio);
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .service-card-mini {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 1.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 1.5px solid transparent;
+  }
+
+  .service-card-mini:hover {
+    border-color: var(--verde-claro);
+    transform: translateY(-3px);
+    box-shadow: var(--sombra);
+  }
+
+  .scard-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--verde-suave);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-card-mini h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--gris-texto);
+  }
+
+  .service-card-mini p {
+    font-size: 0.82rem;
+    color: var(--gris-medio);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* Sección testimonios */
+  .testimonials {
+    padding: 5rem 2.5rem;
+    background: var(--crema);
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .testi-card {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 1.75rem;
+    border: 1px solid rgba(45,106,79,0.1);
+  }
+
+  .stars {
+    color: #F59E0B;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .testi-card p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--gris-texto);
+    font-style: italic;
+    margin-bottom: 1.25rem;
+    font-family: 'Lora', serif;
+  }
+
+  .testi-autor {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .testi-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--verde-suave);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--verde);
+    flex-shrink: 0;
+  }
+
+  .testi-nombre {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--gris-texto);
+    display: block;
+  }
+
+  .testi-mascota {
+    font-size: 0.76rem;
+    color: var(--gris-medio);
+  }
+
+  /* =========================================================
+     PÁGINA: SERVICIOS
+  ========================================================= */
+  .page-hero {
+    background: var(--verde);
+    padding: 5rem 2.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=1200&q=60') center/cover;
+    opacity: 0.12;
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .page-hero h2 {
+    font-size: 2.8rem;
+    color: var(--blanco);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+  }
+
+  .page-hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.82);
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .services-full {
+    padding: 5rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .service-row:last-child { border-bottom: none; }
+  .service-row.reverse { direction: rtl; }
+  .service-row.reverse > * { direction: ltr; }
+
+  .service-img {
+    border-radius: var(--radio);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+  }
+
+  .service-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .si-consulta::before { background-image: url('https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=600&q=80'); }
+  .si-vacuna::before { background-image: url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80'); }
+  .si-cirugia::before { background-image: url('https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&q=80'); }
+  .si-estetica::before { background-image: url('https://images.unsplash.com/photo-1593874090960-e61f9628f66e?w=600&q=80'); }
+
+  .service-content {
+    padding: 0.5rem 0;
+  }
+
+  .service-tag {
+    display: inline-block;
+    background: var(--verde-suave);
+    color: var(--verde);
+    padding: 4px 14px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .service-content h3 {
+    font-size: 1.85rem;
+    font-weight: 600;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .service-content p {
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--gris-medio);
+    font-weight: 300;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .service-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--gris-texto);
+  }
+
+  .service-features li::before {
+    content: '✓';
+    width: 22px;
+    height: 22px;
+    background: var(--verde-suave);
+    color: var(--verde);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* =========================================================
+     PÁGINA: NOSOTROS
+  ========================================================= */
+  .about-hero-bg {
+    background: var(--tierra-suave);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+
+  .about-img-stack {
+    position: relative;
+    height: 480px;
+  }
+
+  .about-img-1, .about-img-2 {
+    position: absolute;
+    border-radius: var(--radio);
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .about-img-1 {
+    width: 72%;
+    height: 360px;
+    top: 0; left: 0;
+    background-image: url('https://images.unsplash.com/photo-1583512603806-077998240c7a?w=500&q=80');
+    box-shadow: var(--sombra);
+  }
+
+  .about-img-2 {
+    width: 56%;
+    height: 260px;
+    bottom: 0; right: 0;
+    background-image: url('https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=400&q=80');
+    box-shadow: var(--sombra-hover);
+    border: 4px solid var(--crema);
+  }
+
+  .about-content h2 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.5px;
+  }
+
+  .about-content h2 em {
+    color: var(--tierra);
+    font-style: italic;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--gris-medio);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .value-item {
+    background: var(--blanco);
+    border-radius: var(--radio-sm);
+    padding: 1.25rem;
+    border-left: 3px solid var(--verde);
+  }
+
+  .value-item h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--gris-texto);
+  }
+
+  .value-item p {
+    font-size: 0.8rem;
+    color: var(--gris-medio);
+    line-height: 1.5;
+    margin-bottom: 0;
+    font-weight: 300;
+  }
+
+  /* Equipo */
+  .team-section {
+    padding: 5rem 2.5rem;
+    background: var(--gris-claro);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .team-card {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra);
+  }
+
+  .team-img {
+    height: 240px;
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .ti-1 { background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80'); }
+  .ti-2 { background-image: url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80'); }
+  .ti-3 { background-image: url('https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&q=80'); }
+
+  .team-info {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .team-info h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .team-esp {
+    font-size: 0.82rem;
+    color: var(--verde);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .team-info p {
+    font-size: 0.82rem;
+    color: var(--gris-medio);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* =========================================================
+     PÁGINA: CONTACTO / TURNOS
+  ========================================================= */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+    align-items: start;
+  }
+
+  .contact-info h2 {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .contact-info > p {
+    font-size: 1rem;
+    color: var(--gris-medio);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ci-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--verde-suave);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .ci-text strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    color: var(--gris-texto);
+  }
+
+  .ci-text span {
+    font-size: 0.85rem;
+    color: var(--gris-medio);
+    line-height: 1.5;
+    display: block;
+  }
+
+  .map-placeholder {
+    margin-top: 2rem;
+    height: 200px;
+    border-radius: var(--radio);
+    overflow: hidden;
+    background: var(--verde-suave);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=70') center/cover;
+    opacity: 0.4;
+  }
+
+  .map-badge {
+    position: relative;
+    z-index: 1;
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: var(--sombra);
+  }
+
+  /* Formulario */
+  .form-card {
+    background: var(--blanco);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: var(--sombra);
+    border: 1px solid rgba(45,106,79,0.08);
+  }
+
+  .form-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-card > p {
+    font-size: 0.88rem;
+    color: var(--gris-medio);
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--gris-texto);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.2px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 11px 16px;
+    border-radius: var(--radio-sm);
+    border: 1.5px solid rgba(0,0,0,0.12);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--gris-texto);
+    background: var(--crema);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--verde);
+    background: var(--blanco);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 90px; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    background: var(--verde);
+    color: var(--blanco);
+    border: none;
+    border-radius: 40px;
+    padding: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(45,106,79,0.25);
+  }
+
+  .form-submit:hover {
+    background: #1E5C3A;
+    transform: translateY(-1px);
+  }
+
+  /* =========================================================
+     PÁGINA: BLOG / CONSEJOS
+  ========================================================= */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2.5rem;
+  }
+
+  .blog-card {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    overflow: hidden;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: 1px solid rgba(45,106,79,0.08);
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra);
+  }
+
+  .blog-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .bi-1 { background-image: url('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&q=80'); }
+  .bi-2 { background-image: url('https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=500&q=80'); }
+  .bi-3 { background-image: url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=500&q=80'); }
+  .bi-4 { background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500&q=80'); }
+  .bi-5 { background-image: url('https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&q=80'); }
+  .bi-6 { background-image: url('https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=500&q=80'); }
+
+  .blog-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .blog-cat {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--verde);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .blog-body h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+    color: var(--gris-texto);
+  }
+
+  .blog-body p {
+    font-size: 0.82rem;
+    color: var(--gris-medio);
+    line-height: 1.55;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .blog-meta {
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .blog-meta::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--verde-claro);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* =========================================================
+     FOOTER
+  ========================================================= */
+  footer {
+    background: #1A3F2D;
+    color: rgba(255,255,255,0.75);
+    padding: 4rem 2.5rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+
+  .footer-brand .nav-logo-text {
+    color: var(--blanco);
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 1.4rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-col h5 {
+    color: var(--blanco);
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover {
+    color: var(--verde-claro);
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .footer-badge {
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 4px 12px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+  }
+
+  /* Toast de confirmación */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radio);
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: var(--sombra-hover);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 9999;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<!-- BARRA DE ANUNCIO -->
+<div class="announce-bar">
+  <div class="announce-track" id="announceTrack">
+    <div class="announce-item">🐾 Turno online disponible las 24 hs <span class="announce-cta" onclick="showPage('contacto')">Reservar ahora</span></div>
+    <div class="announce-sep"></div>
+    <div class="announce-item">💉 Campaña de vacunación antirrábica activa — consultá precios</div>
+    <div class="announce-sep"></div>
+    <div class="announce-item">🏥 Urgencias veterinarias 24 hs · WhatsApp 098 123 456</div>
+    <div class="announce-sep"></div>
+    <div class="announce-item">✂️ 20% de descuento en baño y peluquería los martes</div>
+    <div class="announce-sep"></div>
+    <!-- Duplicado para loop continuo -->
+    <div class="announce-item">🐾 Turno online disponible las 24 hs <span class="announce-cta" onclick="showPage('contacto')">Reservar ahora</span></div>
+    <div class="announce-sep"></div>
+    <div class="announce-item">💉 Campaña de vacunación antirrábica activa — consultá precios</div>
+    <div class="announce-sep"></div>
+    <div class="announce-item">🏥 Urgencias veterinarias 24 hs · WhatsApp 098 123 456</div>
+    <div class="announce-sep"></div>
+    <div class="announce-item">✂️ 20% de descuento en baño y peluquería los martes</div>
+    <div class="announce-sep"></div>
+  </div>
+</div>
+
+<!-- NAVEGACIÓN -->
+<nav>
+  <a class="nav-logo" onclick="showPage('inicio')">
+    <div class="nav-logo-icon">🐾</div>
+    <div>
+      <div class="nav-logo-text">Clínica Huella</div>
+      <div class="nav-logo-sub">Veterinaria</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+    <li><a onclick="showPage('servicios')" id="nav-servicios">Servicios</a></li>
+    <li><a onclick="showPage('nosotros')" id="nav-nosotros">Nosotros</a></li>
+    <li><a onclick="showPage('consejos')" id="nav-consejos">Consejos</a></li>
+    <li><a onclick="showPage('contacto')" id="nav-contacto" class="nav-cta">Pedir turno</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     PÁGINA: INICIO
+============================================================ -->
+<div id="page-inicio" class="page active">
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Atención personalizada para tu mascota
+      </div>
+      <h1>El cuidado que tu <em>compañero</em> merece</h1>
+      <p>En Clínica Huella tratamos a cada paciente como si fuera nuestro. Medicina veterinaria con calidez, profesionalismo y el amor que ellos merecen.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="showPage('contacto')">Pedir turno online</button>
+        <button class="btn-secondary" onclick="showPage('servicios')">Ver servicios →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span>+2.800</span>
+          <p>pacientes atendidos</p>
+        </div>
+        <div class="stat-item">
+          <span>12 años</span>
+          <p>de experiencia</p>
+        </div>
+        <div class="stat-item">
+          <span>4.9 ★</span>
+          <p>calificación promedio</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-placeholder"></div>
+      <div class="hero-card-float">
+        <div class="hero-card-icon">🏥</div>
+        <div class="hero-card-text">
+          <strong>Urgencias 24 hs</strong>
+          <span>Siempre disponibles</span>
+        </div>
+      </div>
+      <div class="hero-card-float-2">
+        <span class="num">🐶🐱</span>
+        <span class="label">Todas las mascotas</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick-services">
+    <div class="section-center">
+      <div class="section-header">
+        <div class="section-label">¿Qué hacemos?</div>
+        <h2 class="section-title">Servicios principales</h2>
+        <p class="section-sub">Todo lo que tu mascota necesita en un solo lugar, con profesionales que realmente se preocupan.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card-mini" onclick="showPage('servicios')">
+          <div class="scard-icon">🩺</div>
+          <h4>Consultas generales</h4>
+          <p>Revisaciones completas, diagnóstico y seguimiento de salud.</p>
+        </div>
+        <div class="service-card-mini" onclick="showPage('servicios')">
+          <div class="scard-icon">💉</div>
+          <h4>Vacunación</h4>
+          <p>Plan de vacunación completo y calendario personalizado.</p>
+        </div>
+        <div class="service-card-mini" onclick="showPage('servicios')">
+          <div class="scard-icon">🔬</div>
+          <h4>Cirugía y laboratorio</h4>
+          <p>Equipamiento moderno para procedimientos seguros.</p>
+        </div>
+        <div class="service-card-mini" onclick="showPage('servicios')">
+          <div class="scard-icon">✂️</div>
+          <h4>Estética y baño</h4>
+          <p>Peluquería profesional para que luzcan increíbles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="section-center">
+      <div class="section-header">
+        <div class="section-label">Lo que dicen nuestros clientes</div>
+        <h2 class="section-title">Ellos confían en nosotros</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p>"Llevé a Milo de urgencia y el equipo fue increíble. Rápidos, amables y muy profesionales. Me explicaron todo en detalle."</p>
+          <div class="testi-autor">
+            <div class="testi-avatar">LM</div>
+            <div>
+              <span class="testi-nombre">Laura Méndez</span>
+              <span class="testi-mascota">Milo, Labrador</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p>"Llevo a mi gata Luna hace 5 años y nunca cambiaría esta clínica. El trato es increíble y siempre me dan turno rápido."</p>
+          <div class="testi-autor">
+            <div class="testi-avatar">CP</div>
+            <div>
+              <span class="testi-nombre">Carlos Pérez</span>
+              <span class="testi-mascota">Luna, Gata persa</span>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p>"El servicio de estética dejó a mi Coco irreconocible. Quedó hermoso y muy tranquilo, notamos que lo trataron con mucho cariño."</p>
+          <div class="testi-autor">
+            <div class="testi-avatar">MR</div>
+            <div>
+              <span class="testi-nombre">Martina Rodríguez</span>
+              <span class="testi-mascota">Coco, Caniche</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================
+     PÁGINA: SERVICIOS
+============================================================ -->
+<div id="page-servicios" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <h2>Nuestros servicios</h2>
+      <p>Atención veterinaria completa para perros, gatos y pequeñas mascotas. Cada tratamiento pensado con cuidado y dedicación.</p>
+    </div>
+  </div>
+
+  <div class="services-full">
+
+    <div class="service-row">
+      <div class="service-img si-consulta"></div>
+      <div class="service-content">
+        <span class="service-tag">Medicina General</span>
+        <h3>Consultas y revisaciones</h3>
+        <p>Realizamos controles de salud completos, diagnóstico de enfermedades, tratamientos personalizados y seguimiento continuo de cada paciente. Nuestros veterinarios dedicarán el tiempo necesario a tu mascota.</p>
+        <ul class="service-features">
+          <li>Control anual de salud</li>
+          <li>Diagnóstico y tratamiento de enfermedades</li>
+          <li>Desparasitación interna y externa</li>
+          <li>Atención de urgencias</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="service-row reverse">
+      <div class="service-img si-vacuna"></div>
+      <div class="service-content">
+        <span class="service-tag">Prevención</span>
+        <h3>Plan de vacunación</h3>
+        <p>Diseñamos un calendario de vacunación personalizado según la especie, edad y estilo de vida de tu mascota. Usamos vacunas de primera calidad con registro completo en su carnet sanitario.</p>
+        <ul class="service-features">
+          <li>Vacunas para perros y gatos</li>
+          <li>Carnet sanitario digital</li>
+          <li>Recordatorio automático por WhatsApp</li>
+          <li>Vacunas importadas disponibles</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="service-img si-cirugia"></div>
+      <div class="service-content">
+        <span class="service-tag">Cirugía y diagnóstico</span>
+        <h3>Cirugía y laboratorio</h3>
+        <p>Contamos con quirófano propio equipado para cirugías programadas y de urgencia. Nuestro laboratorio permite obtener resultados en pocas horas para diagnósticos precisos y rápidos.</p>
+        <ul class="service-features">
+          <li>Castración y esterilización</li>
+          <li>Cirugías ortopédicas y de tejidos blandos</li>
+          <li>Análisis de sangre y orina en clínica</li>
+          <li>Ecografías y radiografías digitales</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="service-row reverse">
+      <div class="service-img si-estetica"></div>
+      <div class="service-content">
+        <span class="service-tag">Estética</span>
+        <h3>Peluquería y baño</h3>
+        <p>Nuestras peluqueras especializadas conocen cada raza y tipo de pelo. Trabajamos en un ambiente tranquilo y sin jaulas innecesarias para que la experiencia sea agradable para tu mascota.</p>
+        <ul class="service-features">
+          <li>Baño y secarme profesional</li>
+          <li>Corte según estándar de raza</li>
+          <li>Corte de uñas y limpieza de oídos</li>
+          <li>Tratamientos de pelo y piel</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     PÁGINA: NOSOTROS
+============================================================ -->
+<div id="page-nosotros" class="page">
+
+  <div class="page-hero about-hero-bg" style="background: var(--tierra-suave);">
+    <div class="page-hero-content">
+      <h2 style="color: var(--gris-texto);">Quiénes somos</h2>
+      <p style="color: var(--gris-medio);">Un equipo que ama los animales tanto como vos. Desde 2012 cuidando a las mascotas de la comunidad.</p>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-img-stack">
+      <div class="about-img-1"></div>
+      <div class="about-img-2"></div>
+    </div>
+    <div class="about-content">
+      <h2>Más de una <em>década</em> de amor y dedicación</h2>
+      <p>Clínica Huella nació en 2012 con una sola convicción: que cada animal merece atención de calidad sin importar su tamaño, raza o historia. Hoy somos un equipo de 8 profesionales comprometidos con la salud y el bienestar animal.</p>
+      <p>Creemos que la medicina veterinaria es también medicina familiar. Cuando cuidas a la mascota, acompañás a toda la familia.</p>
+      <div class="values-grid">
+        <div class="value-item">
+          <h4>Calidez ante todo</h4>
+          <p>Trato personalizado y empático en cada consulta.</p>
+        </div>
+        <div class="value-item">
+          <h4>Excelencia médica</h4>
+          <p>Formación continua y equipamiento actualizado.</p>
+        </div>
+        <div class="value-item">
+          <h4>Transparencia</h4>
+          <p>Explicamos cada diagnóstico y decisión clínica.</p>
+        </div>
+        <div class="value-item">
+          <h4>Comunidad</h4>
+          <p>Participamos activamente en campañas de adopción.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="team-section">
+    <div class="section-center">
+      <div class="section-header" style="max-width:1200px; margin: 0 auto 0;">
+        <div class="section-label">El equipo</div>
+        <h2 class="section-title">Profesionales con vocación</h2>
+        <p class="section-sub">Cada integrante fue elegido no solo por su formación, sino por el amor que siente por los animales.</p>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-img ti-1"></div>
+        <div class="team-info">
+          <h4>Dra. Valentina Sosa</h4>
+          <span class="team-esp">Medicina interna y urgencias</span>
+          <p>Egresada de la UDELAR con posgrado en medicina felina. Fundadora de la clínica y referente en urgencias.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-img ti-2"></div>
+        <div class="team-info">
+          <h4>Dr. Matías Fernández</h4>
+          <span class="team-esp">Cirugía y ortopedia</span>
+          <p>Especializado en cirugías de alta complejidad. Más de 10 años de experiencia en procedimientos ortopédicos.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-img ti-3"></div>
+        <div class="team-info">
+          <h4>Dra. Camila Torres</h4>
+          <span class="team-esp">Dermatología y nutrición</span>
+          <p>Apasionada por la dermatología y la nutrición animal. Asesora planes alimentarios personalizados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================
+     PÁGINA: CONSEJOS
+============================================================ -->
+<div id="page-consejos" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <h2>Consejos para tu mascota</h2>
+      <p>Guías, tips y novedades del mundo veterinario escritas por nuestro equipo profesional.</p>
+    </div>
+  </div>
+
+  <div style="max-width:1200px; margin: 2rem auto; padding: 0 2.5rem;">
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+      <button class="btn-primary" style="padding:8px 20px; font-size:0.85rem;">Todos</button>
+      <button class="btn-secondary" style="padding:8px 20px; font-size:0.85rem;">Perros</button>
+      <button class="btn-secondary" style="padding:8px 20px; font-size:0.85rem;">Gatos</button>
+      <button class="btn-secondary" style="padding:8px 20px; font-size:0.85rem;">Nutrición</button>
+      <button class="btn-secondary" style="padding:8px 20px; font-size:0.85rem;">Prevención</button>
+    </div>
+  </div>
+
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img bi-1"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Perros</span>
+        <h4>Cuándo llevar a tu perro al veterinario aunque parezca sano</h4>
+        <p>Las revisaciones de rutina detectan problemas antes de que se vuelvan serios. Conocé la frecuencia ideal según la edad.</p>
+        <div class="blog-meta">12 de mayo, 2025 · 4 min</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img bi-2"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Nutrición</span>
+        <h4>Alimentos prohibidos para gatos que quizás no conocías</h4>
+        <p>Algunos alimentos cotidianos pueden ser peligrosos para los felinos. Esta lista puede salvarte un susto.</p>
+        <div class="blog-meta">28 de abril, 2025 · 5 min</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img bi-3"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Perros</span>
+        <h4>Cómo preparar a tu perro para el verano sin que sufra el calor</h4>
+        <p>Hidratación, paseos en horarios correctos y señales de alerta que todo dueño debe conocer antes del calor.</p>
+        <div class="blog-meta">15 de marzo, 2025 · 3 min</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img bi-4"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Perros</span>
+        <h4>Por qué la socialización temprana es clave en los cachorros</h4>
+        <p>Los primeros meses de vida son determinantes para el comportamiento adulto. Todo lo que necesitás saber.</p>
+        <div class="blog-meta">2 de febrero, 2025 · 6 min</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img bi-5"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Gatos</span>
+        <h4>Señales de estrés en gatos que muchos dueños ignoran</h4>
+        <p>Los gatos son expertos ocultando malestar. Aprendé a leer su lenguaje corporal antes de que escale.</p>
+        <div class="blog-meta">18 de enero, 2025 · 4 min</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img bi-6"></div>
+      <div class="blog-body">
+        <span class="blog-cat">Prevención</span>
+        <h4>Guía completa de desparasitación para perros y gatos</h4>
+        <p>Cuándo, cómo y con qué frecuencia desparasitar a tu mascota. Todo en una guía fácil de seguir.</p>
+        <div class="blog-meta">5 de enero, 2025 · 5 min</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     PÁGINA: CONTACTO / TURNOS
+============================================================ -->
+<div id="page-contacto" class="page">
+
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <h2>Pedí tu turno</h2>
+      <p>Completá el formulario y te contactamos para confirmar el turno. También podés llamarnos o escribirnos por WhatsApp.</p>
+    </div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>Estamos para ayudarte</h2>
+      <p>Atendemos de lunes a sábado. Para urgencias las 24 horas comunicarte directamente por WhatsApp o teléfono.</p>
+
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <strong>Dirección</strong>
+            <span>Av. Italia 2340, Montevideo<br>Entre Palermo y Parque Rodó</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">⏰</div>
+          <div class="ci-text">
+            <strong>Horarios</strong>
+            <span>Lunes a Viernes: 9:00 – 20:00<br>Sábados: 9:00 – 14:00<br>Urgencias: 24 hs por WhatsApp</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📱</div>
+          <div class="ci-text">
+            <strong>Contacto</strong>
+            <span>WhatsApp: 098 123 456<br>Email: hola@clinicahuella.com.uy</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📲</div>
+          <div class="ci-text">
+            <strong>Redes sociales</strong>
+            <span>Instagram: @clinicahuella<br>Facebook: Clínica Huella Veterinaria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-placeholder">
+        <span class="map-badge">📍 Ver en Google Maps</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-card">
+        <h3>Solicitar turno</h3>
+        <p>Te confirmamos en menos de 24 horas hábiles.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tu nombre</label>
+            <input type="text" placeholder="Ej: María González">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" placeholder="Ej: 098 000 000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@email.com">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre de tu mascota</label>
+            <input type="text" placeholder="Ej: Lola">
+          </div>
+          <div class="form-group">
+            <label>Especie</label>
+            <select>
+              <option>Perro</option>
+              <option>Gato</option>
+              <option>Otra</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Servicio</label>
+          <select>
+            <option>Consulta general</option>
+            <option>Vacunación</option>
+            <option>Cirugía / procedimiento</option>
+            <option>Estética y baño</option>
+            <option>Urgencia</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Fecha preferida</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Comentarios adicionales</label>
+          <textarea placeholder="Contanos brevemente el motivo de la consulta..."></textarea>
+        </div>
+        <button class="form-submit" onclick="showToast()">Enviar solicitud de turno</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo-text">🐾 Clínica Huella</span>
+      <p>Cuidamos a tu mascota como si fuera la nuestra. Doce años de experiencia, vocación y amor por los animales en Montevideo.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a onclick="showPage('servicios')">Consultas</a></li>
+        <li><a onclick="showPage('servicios')">Vacunación</a></li>
+        <li><a onclick="showPage('servicios')">Cirugía</a></li>
+        <li><a onclick="showPage('servicios')">Estética</a></li>
+        <li><a onclick="showPage('contacto')">Urgencias 24hs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Clínica</h5>
+      <ul>
+        <li><a onclick="showPage('nosotros')">Quiénes somos</a></li>
+        <li><a onclick="showPage('nosotros')">Nuestro equipo</a></li>
+        <li><a onclick="showPage('consejos')">Consejos</a></li>
+        <li><a onclick="showPage('contacto')">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <ul>
+        <li><a>Av. Italia 2340, Mvd</a></li>
+        <li><a>098 123 456</a></li>
+        <li><a>hola@clinicahuella.com.uy</a></li>
+        <li><a>@clinicahuella</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Clínica Huella. Todos los derechos reservados.</span>
+    <span class="footer-badge">Hecho con ❤️ para las mascotas</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Solicitud enviada — te contactaremos pronto</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>
