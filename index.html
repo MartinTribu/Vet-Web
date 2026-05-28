@@ -1384,8 +1384,8 @@
     .values-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
 
-    .about-img-stack { height: auto; }
-    .about-img-1 { position: relative; width: 100%; height: 260px; }
+    .about-img-stack { height: 260px; position: relative; overflow: hidden; border-radius: var(--radio); }
+    .about-img-1 { position: absolute; inset: 0; width: 100%; height: 100%; }
     .about-img-2 { display: none; }
     .about-content h2 { font-size: 1.85rem; }
     .section-title { font-size: 1.75rem; }
@@ -1406,7 +1406,6 @@
     .hero-card-float, .hero-card-float-2 { display: none; }
     .section-title { font-size: 1.55rem; }
     .about-img-stack { height: 200px; }
-    .about-img-2 { display: none; }
     .page-hero h2 { font-size: 1.7rem; }
   }
 
